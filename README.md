@@ -27,12 +27,18 @@ assets/style.css  共用樣式（含 prefers-color-scheme）
 
 ## 涵蓋的產品
 
-| 產品 | package | 取得方式 | 廣告 |
-|---|---|---|---|
-| 倒數人生 / Countdown Life | `com.bosian.countdownlife` | 付費下載（一次性買斷） | 無 |
-| 倒數人生 Lite / Countdown Life Lite | `com.bosian.countdownlifelite` | 免費 | Google AdMob |
+**通用條款**：主文不逐支列舉 app，而是按「**取得方式**」（付費下載／免費／應用程式內購買）定規；`terms.html` 附錄 A 與 `index.html` 的產品表僅供參考、非窮盡。
 
-**一份共用 ToS 同時涵蓋兩個 package**（交易商同一人、軟體同一份，只差取得方式與廣告），所以 Play Console 兩支 app 的 ToS 欄位填同一個 URL 即可。之後新 app 要納入，改 `terms.html` / `terms.en.html` / `index.html` 的產品表。
+**2026-11-07 查證**：Google Play 上架 **15 支**，全部在同一個開發者帳號「**Bo-Sian Liou**」（交易商聲明是**帳號層**＋每 app 確認，所以一次聲明涵蓋全部）：
+
+| 取得方式 | 支數 |
+|---|---|
+| 付費下載 | 8（countdownlife、militarycountdown、travelmap、whatsforlunch、lifecost、flashlight、photoeditor、humanalarm） |
+| 免費 | 7（各 `*lite`／`.lite` 版） |
+
+新 app 上架**不用改條款主文**；要進附錄表才改 `terms.html` / `terms.en.html` / `index.html`。
+
+查證方法（可重跑）：`GET https://play.google.com/store/apps/details?id=<pkg>&hl=en&gl=US`，看 `<meta itemprop="price" content="$0.99">`（付費）與 `content="0"`（免費）；廣告看整份 HTML 的 `Contains ads`。**注意**：`In-App Purchases` 與 `Contains ads` 都出現在文件尾端的 `__INITIAL_STATE__`（約 1.0M 字元後），**不能只看頁首**，也會被「相關應用」carousel 污染 —— 判 IAP 要看該標章是否出現在 app 自己的 offer 區塊（與 `990000,"USD","$0.99"` 同段）。
 
 ## 設計決定（改之前先讀這段）
 
@@ -40,9 +46,9 @@ assets/style.css  共用樣式（含 prefers-color-scheme）
 
 交易商的電話／地址由 Google Play 商店頁公開顯示（個人帳號＋交易商＝強制揭露），ToS 內不再重複列 email/地址，避免四處同步。代價：「可直接聯絡」這點稍弱，若之後要強化，在 `terms.html` 第 14 節與 `refund.html`「如何申請退款」補信箱。
 
-### 2. 交易商名稱用品牌名 `Bosian`
+### 2. 交易商名稱用 `Bo-Sian Liou`（以 Bosian 名義發行）
 
-2027-03-01 起 EEA/UK 的「Offered by」會顯示這個名字。注意個人帳號的法律主體仍是本人，品牌名當交易商名稱嚴謹度較低 —— 若之後要改成法定姓名，改 `terms.html` 第 2 節、`index.html`、各頁 header/footer。
+2027-03-01 起 EEA/UK 的「Offered by」會顯示 Play 上的開發者名，實測是 **`Bo-Sian Liou`**（不是 `Bosian`）→ ToS 寫 `Bo-Sian Liou`（publishing as Bosian）讓兩者對齊。若要改成法定姓名或純品牌名，改 `terms.html` 第 2 節、`index.html`、各頁 header/footer。
 
 ### 3. 撤回權：不能靠條款排除，所以改成「揭露 ＋ 自願 14 天退款」
 
@@ -83,6 +89,7 @@ assets/style.css  共用樣式（含 prefers-color-scheme）
 
 ## 待辦
 
-- [ ] 之後接 IAP 時要補：訂閱/消耗型商品的條款（訂閱另有 EU 訂閱契約新制與 UK *Consumer Subscription Contracts (Cancellation and Information) Regulations 2026*）。
-- [ ] 其他 app（militarycountdown、lunch、Map、urgebrake…）要納入時，加進產品表即可；若要分 app 給不同 URL，再拆 `terms/<app>.html`。
+- [ ] **PhotoEditor 的商店頁掛著 `In-App Purchases` 標章，但實際上沒有 IAP**（2026-11-07 實測：該標章出現在 app 自己的 offer 區塊、出 2 次，不是相關應用污染）。應去 Play Console 確認並清掉（IAP 產品清單／內容設定），否則標章與實際不符。ToS 已按「沒有 IAP」寫產品表，且第 5 節用「以商店頁面標示為準」包住這個不一致。
+- [ ] 之後真的接 IAP 時要複查：訂閱／消耗型商品的條款（訂閱另有 EU 訂閱契約新制與 UK *Consumer Subscription Contracts (Cancellation and Information) Regulations 2026*）。
 - [ ] iOS 端若要同一份，App Store 的 EULA 欄位可指同一 URL。
+- [ ] `urgebrake` 的 Android 尚未上架（`com.bosian.urgebrake`／`...lite` 回 404）→ 上架時補進附錄表。

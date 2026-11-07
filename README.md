@@ -27,7 +27,9 @@ assets/style.css  共用樣式（含 prefers-color-scheme）
 
 ## 涵蓋的產品
 
-**通用條款**：主文不逐支列舉 app，而是按「**取得方式**」（付費下載／免費／應用程式內購買）定規；`terms.html` 附錄 A 與 `index.html` 的產品表僅供參考、非窮盡。
+**通用條款**：主文不逐支列舉 app，而是按「**取得方式**」（付費下載／免費／應用程式內購買）定規。
+
+**附錄表已刪除（2026-11-07）**：原本 15 列的「產品／套件識別碼／取得方式」表整個拿掉 —— package name 對使用者是無意義字串、產品身分由商店頁＋開發者名就已確定，而手寫清單反而會過期、且容易被讀成「只有列出的才適用」。現在改成指向**權威且會自己更新**的來源：`https://play.google.com/store/apps/developer?id=Bo-Sian+Liou`（實測 200，標題＝「Google Play 上『Bo-Sian Liou』的 Android 應用程式」）。
 
 **2026-11-07 查證**：Google Play 上架 **15 支**，全部在同一個開發者帳號「**Bo-Sian Liou**」（交易商聲明是**帳號層**＋每 app 確認，所以一次聲明涵蓋全部）：
 
@@ -36,7 +38,7 @@ assets/style.css  共用樣式（含 prefers-color-scheme）
 | 付費下載 | 8（countdownlife、militarycountdown、travelmap、whatsforlunch、lifecost、flashlight、photoeditor、humanalarm） |
 | 免費 | 7（各 `*lite`／`.lite` 版） |
 
-新 app 上架**不用改條款主文**；要進附錄表才改 `terms.html` / `terms.en.html` / `index.html`。
+**新 app 上架完全不用動這個 repo 的任何檔案**（清單由商店頁自己生成，條款按取得方式定規）。
 
 查證方法（可重跑）：`GET https://play.google.com/store/apps/details?id=<pkg>&hl=en&gl=US`，看 `<meta itemprop="price" content="$0.99">`（付費）與 `content="0"`（免費）；廣告看整份 HTML 的 `Contains ads`。**注意**：`In-App Purchases` 與 `Contains ads` 都出現在文件尾端的 `__INITIAL_STATE__`（約 1.0M 字元後），**不能只看頁首**，也會被「相關應用」carousel 污染 —— 判 IAP 要看該標章是否出現在 app 自己的 offer 區塊（與 `990000,"USD","$0.99"` 同段）。
 
@@ -92,4 +94,4 @@ assets/style.css  共用樣式（含 prefers-color-scheme）
 - [ ] **PhotoEditor 的商店頁掛著 `In-App Purchases` 標章，但實際上沒有 IAP**（2026-11-07 實測：該標章出現在 app 自己的 offer 區塊、出 2 次，不是相關應用污染）。應去 Play Console 確認並清掉（IAP 產品清單／內容設定），否則標章與實際不符。ToS 已按「沒有 IAP」寫產品表，且第 5 節用「以商店頁面標示為準」包住這個不一致。
 - [ ] 之後真的接 IAP 時要複查：訂閱／消耗型商品的條款（訂閱另有 EU 訂閱契約新制與 UK *Consumer Subscription Contracts (Cancellation and Information) Regulations 2026*）。
 - [ ] iOS 端若要同一份，App Store 的 EULA 欄位可指同一 URL。
-- [ ] `urgebrake` 的 Android 尚未上架（`com.bosian.urgebrake`／`...lite` 回 404）→ 上架時補進附錄表。
+- [ ] `urgebrake` 的 Android 尚未上架（`com.bosian.urgebrake`／`...lite` 回 404）→ 上架後自動進入開發者清單，**不用改條款**。
